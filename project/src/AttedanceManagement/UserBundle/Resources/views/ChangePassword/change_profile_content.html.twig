@@ -1,0 +1,86 @@
+<div class="col-sm-12 col-md-">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        {{ render(controller('AttedanceManagementUserBundle:User:edit')) }}
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        {{ form_start(
+            form,
+                {
+                    'attr': {
+                        'class' : 'form-horizontal',
+                    }
+                }
+        )}}
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    {{'profile.label.change.password'|trans}}
+            </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'profile.label.current.password'|trans }}
+                        </label>
+                        <div class="col-sm-6">
+                            {{ form_widget(
+                                form.current_password,
+                                {
+                                    'attr': {
+                                        'class' : 'form-control',
+                                    }
+                                }
+                            )}}
+                             <span class="alert-danger">
+                                {{ form_errors(form.current_password)|striptags }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'profile.label.new.password'|trans }}
+                        </label>
+                        <div class="col-sm-6">
+                            {{ form_widget(
+                                form.plainPassword.first,
+                                {
+                                    'attr': {
+                                        'class' : 'form-control',
+                                    }
+                                }
+                            )}}
+                            <span class="alert-danger">
+                                {{ form_errors(form.plainPassword.first)|striptags }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'profile.label.confirm.password'|trans }}
+                        </label>
+                        <div class="col-sm-6">
+                            {{ form_widget(
+                                form.plainPassword.second,
+                                {
+                                    'attr': {
+                                        'class' : 'form-control',
+                                    }
+                                }
+                            )}}
+                            <span class="alert-danger">
+                                {{ form_errors(form.plainPassword.second)|striptags }}
+                            </span>
+                        </div>
+                    </div>
+                        <div>
+                        <div class="col-sm-3">
+                        </div>
+                        <input
+                            type="submit"
+                            class="btn btn-success"
+                            value="{{'btn.save'|trans }}"
+                        />
+                    </div>
+                </div>
+            </div>
+        {{form_end(form) }}
+    </div>
+</div>
