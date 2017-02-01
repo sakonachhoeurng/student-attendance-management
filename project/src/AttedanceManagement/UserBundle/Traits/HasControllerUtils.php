@@ -22,9 +22,9 @@ trait HasControllerUtils
     protected function persistAndFlush($entity)
     {
         $this->getEntityManager()
-            ->persist($entity);
+             ->persist($entity);
         $this->getEntityManager()
-            ->flush();
+             ->flush();
     }
 
     /**
@@ -33,8 +33,8 @@ trait HasControllerUtils
     protected function removeAndFlush($entity)
     {
         $this->getEntityManager()
-            ->remove($entity);
+             ->remove($entity);
         $this->getEntityManager()
-            ->flush();
+             ->flush();
     }
 }

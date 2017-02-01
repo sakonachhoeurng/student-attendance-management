@@ -17,6 +17,7 @@
     - php7.0-intl
     - php7.0-zip
     - zip
+    - php7.0-xml
   notify:
     restart Apache
 

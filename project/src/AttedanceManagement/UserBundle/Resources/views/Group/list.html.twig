@@ -1,0 +1,66 @@
+{% extends "::content_page_layout.html.twig" %}
+{% set title = 'List Group'|trans %}
+{% block local_stylesheet %}
+    {% stylesheets
+        "@AttedanceManagementUserBundle/Resources/public/css/list.css"
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block content %}
+    {% for flash_message in app.session.flashBag.get('notice') %}
+       <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="table-responsive col-md-12" >
+        <tbody>
+          <tr>
+            <td>
+              <a href="{{ path('create_group') }}">
+                <button
+                    type="button"
+                    class="btn btn-success pull-right">
+                    Create Grup
+                </button>
+              </a>
+            <td>
+          </tr>
+        </tbody>
+      <table class="table table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        {% for group in classGroups %}
+            <tbody>
+            <tr>
+                <th scope="row">{{ group.id }}</th>
+                <td>{{ group.name }}</td>
+                <td class="remove-underline">
+                    <a href="{{ path('edit_group', {'classGroup': group.id})}}">
+                        <buttonclassGroup
+                            type="button"
+                            class="btn btn-default glyphicon glyphicon-edit"
+                        >
+                        </button>
+                    </a>
+                    <a href="{{ path('delete_group', {'classGroup': group.id})}}">
+                        <button
+                            type="button"
+                            class="btn btn-danger glyphicon glyphicon-trash"
+                        >
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    </div>
+    {{ knp_pagination_render(classGroups) }}
+{% endblock %}

@@ -49,6 +49,18 @@ class Student
      */
     private $address;
 
+    /**
+     * @var classGroup
+     *
+     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(
+     *      targetEntity="AttedanceManagement\UserBundle\Entity\ClassGroup",
+     *      inversedBy="students",
+     *      fetch="EAGER"
+     * )
+     */
+    private $classGroup;
+
 
     /**
      * Get id
@@ -154,6 +166,30 @@ class Student
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Set classGroup.
+     *
+     * @param ClassGroup $classGroup
+     *
+     * @return Student
+     */
+    public function setClassGroup(ClassGroup $classGroup)
+    {
+        $this->classGroup = $classGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get classGroup.
+     *
+     * @return ClassGroup
+     */
+    public function getClassGroup()
+    {
+        return $this->classGroup;
     }
 }
 
