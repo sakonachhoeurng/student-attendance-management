@@ -1,3 +1,7 @@
 user_profile_edit:
     resource: "@AttedanceManagementUserBundle/Controller/UserController.php"
     type: annotation
+
+group:
+    resource: "@AttedanceManagementUserBundle/Controller/GroupController.php"
+    type: annotation
