@@ -1,5 +1,5 @@
 {% extends "::content_page_layout.html.twig" %}
-{% set title = 'List Group'|trans %}
+{% set title = 'List student'|trans %}
 {% block local_stylesheet %}
     {% stylesheets
         "@AttedanceManagementUserBundle/Resources/public/css/list.css"
@@ -18,11 +18,11 @@
         <tbody>
           <tr>
             <td>
-              <a href="{{ path('create_group') }}">
+              <a href="{{ path('create_student') }}">
                 <button
                     type="button"
                     class="btn btn-success pull-right">
-                    Create Group
+                    Create Student
                 </button>
               </a>
             <td>
@@ -32,24 +32,32 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Group</th>
+            <th>Address</th>
             <th>Action</th>
           </tr>
         </thead>
-        {% for group in classGroups %}
+        {% for student in students %}
             <tbody>
             <tr>
-                <th scope="row">{{ group.id }}</th>
-                <td>{{ group.name }}</td>
+                <th scope="row">{{ student.id }}</th>
+                <td>{{ student.firstName }}</td>
+                <td>{{ student.lastName }}</td>
+                <td>{{ student.telephone }}</td>
+                <td>{{ student.classGroup.name }}</td>
+                <td>{{ student.address }}</td>
                 <td class="remove-underline">
-                    <a href="{{ path('edit_group', {'classGroup': group.id})}}">
-                        <buttonclassGroup
+                    <a href="{{ path('edit_student', {'student': student.id})}}">
+                        <buttonclassstudent
                             type="button"
                             class="btn btn-default glyphicon glyphicon-edit"
                         >
                         </button>
                     </a>
-                    <a href="{{ path('delete_group', {'classGroup': group.id})}}">
+                    <a href="{{ path('delete_student', {'student': student.id})}}">
                         <button
                             type="button"
                             class="btn btn-danger glyphicon glyphicon-trash"
@@ -62,5 +70,5 @@
         {% endfor %}
         </table>
     </div>
-    {{ knp_pagination_render(classGroups) }}
+    {{ knp_pagination_render(students) }}
 {% endblock %}
