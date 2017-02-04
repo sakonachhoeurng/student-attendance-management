@@ -5,7 +5,7 @@ namespace AttedanceManagement\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use AttedanceManagement\UserBundle\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -36,6 +36,9 @@ class SubjectGroupFormType extends AbstractType
             ->add('user', EntityType::class,
                 [
                     'class' => 'AttedanceManagement\UserBundle\Entity\User',
+                    'query_builder' => function(UserRepository $repo) {
+                        return $repo->findAllTeacher();
+                    },
                     'choice_label' => 'name',
                 ]
             );
