@@ -1,5 +1,5 @@
 {% extends "::content_page_layout.html.twig" %}
-{% set title = 'List student'|trans %}
+{% set title = 'List Subject Group'|trans %}
 {% block local_stylesheet %}
     {% stylesheets
         "@AttedanceManagementUserBundle/Resources/public/css/list.css"
@@ -18,11 +18,11 @@
         <tbody>
           <tr>
             <td>
-              <a href="{{ path('create_student') }}">
+              <a href="{{ path('create_subject_group') }}">
                 <button
                     type="button"
                     class="btn btn-success pull-right">
-                    Create Subject
+                    Create Subject Group
                 </button>
               </a>
             <td>
@@ -32,32 +32,32 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Last Name</th>
-            <th>Phone Number</th>
+            <th>Subject</th>
             <th>Group</th>
-            <th>Address</th>
+            <th>Teacher</th>
+            <th>Date Start Caurse</th>
+            <th>Date End Caurse</th>
             <th>Action</th>
           </tr>
         </thead>
-        {% for student in students %}
+        {% for subjectGroup in subjectGroups %}
             <tbody>
             <tr>
-                <th scope="row">{{ student.id }}</th>
-                <td>{{ student.firstName }}</td>
-                <td>{{ student.lastName }}</td>
-                <td>{{ student.telephone }}</td>
-                <td>{{ student.classGroup.name }}</td>
-                <td>{{ student.address }}</td>
+                <th scope="row">{{ subjectGroup.id }}</th>
+                <td>{{ subjectGroup.subject.name }}</td>
+                <td>{{ subjectGroup.classGroup.name }}</td>
+                <td>{{ subjectGroup.user.name }}</td>
+                <td>{{ subjectGroup.startDate | date('Y-m-d') }}</td>
+                <td>{{ subjectGroup.endDate | date('Y-m-d') }}</td>
                 <td class="remove-underline">
-                    <a href="{{ path('edit_student', {'student': student.id})}}">
+                    <a href="{{ path('edit_subject_group', {'subjectGroup': subjectGroup.id})}}">
                         <button
                             type="button"
                             class="btn btn-default glyphicon glyphicon-edit"
                         >
                         </button>
                     </a>
-                    <a href="{{ path('delete_student', {'student': student.id})}}">
+                    <a href="{{ path('delete_subject_group', {'subjectGroup': subjectGroup.id})}}">
                         <button
                             type="button"
                             class="btn btn-danger glyphicon glyphicon-trash"
@@ -70,5 +70,5 @@
         {% endfor %}
         </table>
     </div>
-    {{ knp_pagination_render(students) }}
+    {{ knp_pagination_render(subjectGroups) }}
 {% endblock %}

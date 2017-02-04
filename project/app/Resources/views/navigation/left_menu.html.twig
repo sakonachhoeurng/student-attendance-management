@@ -16,8 +16,23 @@
             <li>
                 <a href="{{ path('list_subject') }}">
                     <i class="fa fa-table fa-fw"></i>
-                    {{ "app.subject"|trans }}
+                    {{ "app.course"|trans }}
+                    <span class="fa arrow"></span>
                 </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{ path('list_subject') }}">
+                            <i class="fa fa-table fa-fw"></i>
+                            {{ "app.subject"|trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('list_subject_group') }}">
+                            <i class="fa fa-table fa-fw"></i>
+                            {{ "app.subject.choose.group"|trans }}
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

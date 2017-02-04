@@ -27,6 +27,16 @@ class Subject
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
+    /**
+     * @var SubjectGroup[]
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="AttedanceManagement\UserBundle\Entity\SubjectGroup",
+     *     mappedBy="subject"
+     * )
+     */
+    private $subjectGroups;
 
 
     /**
