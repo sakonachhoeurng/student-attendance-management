@@ -24,6 +24,15 @@ trait HasRepositories
     }
 
     /**
+     * @return SubjectRepository|ObjectRepository
+     */
+    public function getSubjectRepository()
+    {
+        return $this->getDoctrine()->getRepository('AttedanceManagementUserBundle:Subject');
+    }
+
+
+    /**
      * @return Registry
      */
     abstract public function getDoctrine();

@@ -1,5 +1,5 @@
 {% extends "::content_page_layout.html.twig" %}
-{% set title = 'List Group'|trans %}
+{% set title = 'List subject'|trans %}
 {% block local_stylesheet %}
     {% stylesheets
         "@AttedanceManagementUserBundle/Resources/public/css/list.css"
@@ -18,11 +18,11 @@
         <tbody>
           <tr>
             <td>
-              <a href="{{ path('create_group') }}">
+              <a href="{{ path('create_subject') }}">
                 <button
                     type="button"
                     class="btn btn-success pull-right">
-                    Create Group
+                    Create Subject
                 </button>
               </a>
             <td>
@@ -36,20 +36,20 @@
             <th>Action</th>
           </tr>
         </thead>
-        {% for group in classGroups %}
+        {% for subject in subjects %}
             <tbody>
             <tr>
-                <th scope="row">{{ group.id }}</th>
-                <td>{{ group.name }}</td>
+                <th scope="row">{{ subject.id }}</th>
+                <td>{{ subject.name }}</td>
                 <td class="remove-underline">
-                    <a href="{{ path('edit_group', {'classGroup': group.id})}}">
+                    <a href="{{ path('edit_subject', {'subject': subject.id})}}">
                         <button
                             type="button"
                             class="btn btn-default glyphicon glyphicon-edit"
                         >
                         </button>
                     </a>
-                    <a href="{{ path('delete_group', {'classGroup': group.id})}}">
+                    <a href="{{ path('delete_subject', {'subject': subject.id})}}">
                         <button
                             type="button"
                             class="btn btn-danger glyphicon glyphicon-trash"
@@ -62,5 +62,5 @@
         {% endfor %}
         </table>
     </div>
-    {{ knp_pagination_render(classGroups) }}
+    {{ knp_pagination_render(subjects) }}
 {% endblock %}
