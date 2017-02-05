@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 
 /**
- * @ORM\Entity(	)
+ * @ORM\Entity(repositoryClass="AttedanceManagement\UserBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  *
  * @ORM\AttributeOverrides({
@@ -44,6 +44,13 @@ class User extends BaseUser
      * @ORM\Column(type="string", nullable=false)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=500, nullable=true)
+     */
+    private $address;
 
     /**
      * @var SubjectGroup[]
@@ -102,5 +109,29 @@ class User extends BaseUser
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return User
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

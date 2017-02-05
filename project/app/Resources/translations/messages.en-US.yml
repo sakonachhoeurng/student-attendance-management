@@ -1,4 +1,5 @@
 app.group: Group Mangement
+app.teacher: Teacher Managment
 app.student: Student Managment
 app.course: Course Managment
 app.subject: Subject

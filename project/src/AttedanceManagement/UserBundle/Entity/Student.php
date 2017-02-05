@@ -45,7 +45,7 @@ class Student
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     * @ORM\Column(name="address", type="string", length=500, nullable=true)
      */
     private $address;
 

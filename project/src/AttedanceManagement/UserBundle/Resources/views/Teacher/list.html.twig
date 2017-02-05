@@ -1,0 +1,72 @@
+{% extends "::content_page_layout.html.twig" %}
+{% set title = 'List Teacher'|trans %}
+{% block local_stylesheet %}
+    {% stylesheets
+        "@AttedanceManagementUserBundle/Resources/public/css/list.css"
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block content %}
+    {% for flash_message in app.session.flashBag.get('notice') %}
+       <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="table-responsive col-md-12" >
+        <tbody>
+          <tr>
+            <td>
+              <a href="{{ path('create_teacher') }}">
+                <button
+                    type="button"
+                    class="btn btn-success pull-right">
+                    Create Teacher
+                </button>
+              </a>
+            <td>
+          </tr>
+        </tbody>
+      <table class="table table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        {% for teacher in teachers %}
+            <tbody>
+            <tr>
+                <th scope="row">{{ teacher.id }}</th>
+                <td>{{ teacher.name }}</td>
+                <td>{{ teacher.username }}</td>
+                <td>{{ teacher.phoneNumber }}</td>
+                <td>{{ teacher.address }}</td>
+                <td class="remove-underline">
+                    <a href="{{ path('edit_teacher', {'teacher': teacher.id})}}">
+                        <button
+                            type="button"
+                            class="btn btn-default glyphicon glyphicon-edit"
+                        >
+                        </button>
+                    </a>
+                    <a href="{{ path('delete_teacher', {'teacher': teacher.id})}}">
+                        <button
+                            type="button"
+                            class="btn btn-danger glyphicon glyphicon-trash"
+                        >
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    </div>
+    {{ knp_pagination_render(teachers) }}
+{% endblock %}

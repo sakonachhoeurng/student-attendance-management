@@ -14,7 +14,7 @@ use AttedanceManagement\UserBundle\Traits\HasPagination;
 use AttedanceManagement\UserBundle\Traits\HasRepositories;
 
 /**
- * @Route("/subect")
+ * @Route("/subject")
  */
 class SubjectController extends Controller
 {

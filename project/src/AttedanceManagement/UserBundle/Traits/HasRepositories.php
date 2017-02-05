@@ -8,6 +8,14 @@ use Doctrine\Common\Persistence\ObjectRepository;
 trait HasRepositories
 {
     /**
+     * @return ClassUserRepository|ObjectRepository
+     */
+    public function getUserRepository()
+    {
+        return $this->getDoctrine()->getRepository('AttedanceManagementUserBundle:User');
+    }
+
+    /**
      * @return ClassGroupRepository|ObjectRepository
      */
     public function getGroupRepository()
@@ -16,7 +24,7 @@ trait HasRepositories
     }
 
     /**
-     * @return StudentRepository|ObjectRepository
+     * @return ClassStudentRepository|ObjectRepository
      */
     public function getStudentRepository()
     {
@@ -24,14 +32,14 @@ trait HasRepositories
     }
 
     /**
-     * @return SubjectRepository|ObjectRepository
+     * @return ClassSubjectRepository|ObjectRepository
      */
     public function getSubjectRepository()
     {
         return $this->getDoctrine()->getRepository('AttedanceManagementUserBundle:Subject');
     } 
     /**
-     * @return SubjectGroupRepository|ObjectRepository
+     * @return ClassSubjectGroupRepository|ObjectRepository
      */
     public function getSubjectGroupRepository()
     {

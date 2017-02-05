@@ -13,6 +13,7 @@ fos_user_change_password:
 attendance_user:
     resource: "@AttedanceManagementUserBundle/Controller/"
     type:     annotation
+    prefix: /admin/{_locale}
 
 app:
     resource: "@AppBundle/Controller/"
