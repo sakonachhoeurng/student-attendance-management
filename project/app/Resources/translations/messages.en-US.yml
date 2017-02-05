@@ -1,3 +1,5 @@
-app.group: Group
-app.student: Student
+app.group: Group Mangement
+app.student: Student Managment
+app.course: Course Managment
 app.subject: Subject
+app.subject.choose.group: Add Course

@@ -38,6 +38,17 @@ class ClassGroup
      */
     private $students;
 
+    /**
+     * @var SubjectGroup[]
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="AttedanceManagement\UserBundle\Entity\SubjectGroup",
+     *     mappedBy="classGroup"
+     * )
+     */
+    private $subjectGroups;
+
+
 
     /**
      * Get id

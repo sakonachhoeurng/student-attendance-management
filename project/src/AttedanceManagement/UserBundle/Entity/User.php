@@ -46,6 +46,17 @@ class User extends BaseUser
     private $name;
 
     /**
+     * @var SubjectGroup[]
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="AttedanceManagement\UserBundle\Entity\SubjectGroup",
+     *     mappedBy="user"
+     * )
+     */
+    private $subjectGroups;
+
+
+    /**
      * @return int
      */
     public function getId()
