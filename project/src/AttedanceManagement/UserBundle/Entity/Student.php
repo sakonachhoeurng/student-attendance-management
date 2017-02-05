@@ -61,6 +61,15 @@ class Student
      */
     private $classGroup;
 
+    /**
+     * @var Attendance[]
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="AttedanceManagement\UserBundle\Entity\Attendance",
+     *     mappedBy="student"
+     * )
+     */
+    private $attendances;
 
     /**
      * Get id

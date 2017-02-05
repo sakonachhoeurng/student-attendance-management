@@ -1,0 +1,92 @@
+{% extends "::content_page_layout.html.twig" %}
+{% set title = 'List Attendance'|trans %}
+{% block local_stylesheet %}
+    {% stylesheets
+        "@AttedanceManagementUserBundle/Resources/public/css/list.css"
+        "@AttedanceManagementUserBundle/Resources/public/css/bootstrap-datetimepicker.min.css"
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block content %}
+    {% for flash_message in app.session.flashBag.get('notice') %}
+       <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="table-responsive col-md-12">
+      <table class="table table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Group</th>
+            <th>Address</th>
+            <th>Date</th>
+            <th>Session</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        {% for student in students %}
+            <tbody>
+            <tr>
+                <th scope="row">{{ student.id }}</th>
+                <td>{{ student.firstName }}</td>
+                <td>{{ student.lastName }}</td>
+                <td>{{ student.telephone }}</td>
+                <td>{{ student.classGroup.name }}</td>
+                <td>{{ student.address }}</td>
+                <td>
+                    <input type="text" class="datepicker form-control" name="date_absent">
+                </td>
+                <td>
+                    <label>Session 1:</label>
+                    <input type="checkbox" name="session_one">
+                    <br />
+                    <label>Session 2:</label>
+                    <input type="checkbox" name="session_two">
+                </td>
+                <td class="remove-underline">
+                    
+
+                    <a href="#">
+                        <button
+                            type="button"
+                            class="btn btn-default glyphicon glyphicon-edit"
+                        >
+                        </button>
+                    </a>
+                    <a href="#">
+                        <button
+                            type="button"
+                            class="btn btn-default glyphicon glyphicon-edit"
+                        >
+                        </button>
+                    </a>
+                    <a href="#">
+                        <button
+                            type="button"
+                            class="btn btn-danger glyphicon glyphicon-trash"
+                        >
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    </div>
+    {{ knp_pagination_render(students) }}
+{% endblock %}
+{% block javascripts %}
+    {% javascripts
+        "@AttedanceManagementUserBundle/Resources/public/js/moment.min.js"
+        "@AttedanceManagementUserBundle/Resources/public/js/bootstrap-datetimepicker.min.js"
+        "@AttedanceManagementUserBundle/Resources/public/js/attendance.js"
+    %}
+        <script src="{{asset_url}}"></script>
+    {% endjavascripts %}
+{% endblock %}

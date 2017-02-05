@@ -80,6 +80,17 @@ class SubjectGroup
      */
     private $classGroup;
 
+
+     /**
+     * @var Attendance[]
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="AttedanceManagement\UserBundle\Entity\Attendance",
+     *     mappedBy="subjectGroup"
+     * )
+     */
+    private $attendances;
+
     /**
      * Get id
      *

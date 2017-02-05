@@ -4,3 +4,4 @@ app.student: Student Managment
 app.course: Course Managment
 app.subject: Subject
 app.subject.choose.group: Add Course
+app.attendance: Attendance Managment
