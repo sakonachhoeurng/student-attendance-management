@@ -2,6 +2,10 @@
 
 namespace AttedanceManagement\UserBundle\Repository;
 
+use AttedanceManagement\UserBundle\Entity\ClassGroup;
+use AttedanceManagement\UserBundle\Entity\Subject;
+use AttedanceManagement\UserBundle\Entity\User;
+
 /**
  * StudentRepository
  *
@@ -10,4 +14,41 @@ namespace AttedanceManagement\UserBundle\Repository;
  */
 class StudentRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Find all student by filter form
+     *
+     * @param User $teacher
+     * @param Subject|null $subject
+     * @param ClassGroup|null $classGroup
+     *
+     * @return QueryBuilder
+     */
+    public function findByFilter(
+        User $teacher,
+        $subject,
+        $classGroup
+    ) {
+        $classGroupQuery = $this->getEntityManager()->getRepository('AttedanceManagementUserBundle:SubjectGroup')->findByFilter($teacher, $subject, $classGroup);
+        $qb = $this->createQueryBuilder('s');
+        $qb->where(
+             $qb
+            ->expr()
+            ->in(
+                's.classGroup',
+                $classGroupQuery->getDQL()
+            )
+        );
+
+        $qb->setParameter('teacher', $teacher);
+        if (!empty($subject)) {
+            $qb->setParameter('subject', $subject);
+        }
+        if (!empty($classGroup)) {
+            $qb->setParameter('group', $classGroup);
+        }
+
+        $qb->orderBy('s.id', 'DESC');
+
+        return $qb;
+    }
 }

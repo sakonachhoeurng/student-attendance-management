@@ -2,6 +2,10 @@
 
 namespace AttedanceManagement\UserBundle\Repository;
 
+use AttedanceManagement\UserBundle\Entity\ClassGroup;
+use AttedanceManagement\UserBundle\Entity\Subject;
+use AttedanceManagement\UserBundle\Entity\User;
+
 /**
  * SubjectGroupRepository
  *
@@ -10,4 +14,77 @@ namespace AttedanceManagement\UserBundle\Repository;
  */
 class SubjectGroupRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	 /**
+     * Find all student by filter form
+     *
+     * @param User $teacher
+     * @param Subject|null $subject
+     * @param ClassGroup|null $classGroup
+     *
+     * @return QueryBuilder
+     */
+    public function findByFilter(
+        User $teacher,
+        $subject,
+        $classGroup
+    ) {
+        $qb = $this->createQueryBuilder('sg');
+        $qb->select('IDENTITY(sg.classGroup)');
+        $qb->andWhere('sg.user = :teacher');
+
+        if ($classGroup !== null) {
+            $qb->andWhere('sg.classGroup = :group');
+        }
+
+        if ($subject !== null) {
+        	$qb->andWhere('sg.subject = :subject');
+        }
+
+        return $qb;
+    }
+
+    /**
+     * Get subject by teacher
+     *
+     * @return QueryBuilder
+     */
+    public function findSubjectByTeacher()
+    {
+    	$qb = $this->createQueryBuilder('sg');
+        $qb->select('IDENTITY(sg.subject)');
+        $qb->andWhere('sg.user = :teacher');
+
+        return $qb;
+    }
+
+    /**
+     * Get group by teacher
+     *
+     * @return QueryBuilder
+     */
+    public function findGroupByTeacher()
+    {
+    	$qb = $this->createQueryBuilder('sg');
+        $qb->select('IDENTITY(sg.classGroup)');
+        $qb->andWhere('sg.user = :teacher');
+
+        return $qb;
+    }
+
+    public function findBySubjectTeacherAndGroup(
+        User $teacher,
+        Subject $subject,
+        ClassGroup $group
+    ) {
+        $qb = $this->createQueryBuilder('sg');
+        $qb->where('sg.subject = :subject');
+        $qb->andWhere('sg.user = :teacher');
+        $qb->andWhere('sg.classGroup = :group');
+        $qb->setParameter('teacher', $teacher);
+        $qb->setParameter('subject', $subject);
+        $qb->setParameter('group', $group);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }
