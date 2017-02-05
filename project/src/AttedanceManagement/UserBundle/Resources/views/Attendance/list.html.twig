@@ -15,8 +15,35 @@
             {{ flash_message }}
         </div>
     {% endfor %}
+    {{ form_start(form, { 'attr' : { 'class': 'form-inline' } }) }}
+    <form class="form-inline">
+        <div class="form-group">
+            <label>Subject</label>
+            {{form_widget(
+                form.subject,
+                {
+                    'attr': {
+                        'class': 'form-control'
+                    }
+                }
+            )}}
+        </div>
+        <div class="form-group">
+            <label>Group</label>
+            {{form_widget(
+                form.classGroup,
+                {
+                    'attr': {
+                        'class': 'form-control'
+                    }
+                }
+            )}}
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+    {{ form_end(form) }}
+    <hr />
     <div class="table-responsive col-md-12">
-      <table class="table table">
+      <table class="table table" data-save-route="{{ path('save_attendance')}}">
         <thead>
           <tr>
             <th>Id</th>
@@ -24,7 +51,6 @@
             <th>Last Name</th>
             <th>Phone Number</th>
             <th>Group</th>
-            <th>Address</th>
             <th>Date</th>
             <th>Session</th>
             <th>Action</th>
@@ -38,9 +64,13 @@
                 <td>{{ student.lastName }}</td>
                 <td>{{ student.telephone }}</td>
                 <td>{{ student.classGroup.name }}</td>
-                <td>{{ student.address }}</td>
                 <td>
-                    <input type="text" class="datepicker form-control" name="date_absent">
+                    <input
+                        data-id="{{student.id}}"
+                        type="text"
+                        class="datepicker form-control"
+                        name="date_absent"
+                    >
                 </td>
                 <td>
                     <label>Session 1:</label>
@@ -50,7 +80,7 @@
                     <input type="checkbox" name="session_two">
                 </td>
                 <td class="remove-underline">
-                    
+
 
                     <a href="#">
                         <button
@@ -59,21 +89,12 @@
                         >
                         </button>
                     </a>
-                    <a href="#">
-                        <button
-                            type="button"
-                            class="btn btn-default glyphicon glyphicon-edit"
-                        >
-                        </button>
-                    </a>
-                    <a href="#">
-                        <button
-                            type="button"
-                            class="btn btn-danger glyphicon glyphicon-trash"
-                        >
-                        </button>
-                    </a>
-                </td>
+                    <button
+                        type="button"
+                        onclick="Attendance.submit_attendance(this)"
+                        class="btn btn-default glyphicon glyphicon-edit"
+                    >
+                    </button>
             </tr>
             </tbody>
         {% endfor %}

@@ -2,6 +2,8 @@
 
 namespace AttedanceManagement\UserBundle\Repository;
 
+use AttedanceManagement\UserBundle\Entity\User;
+
 /**
  * SubjectRepository
  *
@@ -10,4 +12,30 @@ namespace AttedanceManagement\UserBundle\Repository;
  */
 class SubjectRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Find all subject that belong teacher
+     *
+     * @param User $teacher
+     *
+     * @return QueryBuilder
+     */
+    public function findByTeacher(User $teacher)
+    {
+        $subjectQuery = $this->getEntityManager()->getRepository('AttedanceManagementUserBundle:SubjectGroup')->findSubjectByTeacher($teacher);
+        $qb = $this->createQueryBuilder('s');
+        $qb->where(
+             $qb
+            ->expr()
+            ->in(
+                's.id',
+                $subjectQuery->getDQL()
+            )
+        );
+        $qb->setParameter('teacher', $teacher);
+
+        $qb->orderBy('s.id', 'DESC');
+
+        return $qb;
+
+    }
 }

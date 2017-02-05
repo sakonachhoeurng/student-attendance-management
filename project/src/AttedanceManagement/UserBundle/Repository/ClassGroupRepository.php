@@ -2,6 +2,8 @@
 
 namespace AttedanceManagement\UserBundle\Repository;
 
+use AttedanceManagement\UserBundle\Entity\User;
+
 /**
  * ClassRepository
  *
@@ -10,4 +12,30 @@ namespace AttedanceManagement\UserBundle\Repository;
  */
 class ClassGroupRepository extends \Doctrine\ORM\EntityRepository
 {
+	/**
+     * Find all group that belong teacher
+     *
+     * @param User $teacher
+     *
+     * @return QueryBuilder
+     */
+    public function findByTeacher(User $teacher)
+    {
+        $subjectQuery = $this->getEntityManager()->getRepository('AttedanceManagementUserBundle:SubjectGroup')->findGroupByTeacher($teacher);
+        $qb = $this->createQueryBuilder('g');
+        $qb->where(
+             $qb
+            ->expr()
+            ->in(
+                'g.id',
+                $subjectQuery->getDQL()
+            )
+        );
+        $qb->setParameter('teacher', $teacher);
+
+        $qb->orderBy('g.id', 'DESC');
+
+        return $qb;
+
+    }
 }
