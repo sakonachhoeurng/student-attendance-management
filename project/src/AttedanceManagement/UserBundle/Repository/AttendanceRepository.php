@@ -2,6 +2,8 @@
 
 namespace AttedanceManagement\UserBundle\Repository;
 
+use AttedanceManagement\UserBundle\Entity\Student;
+
 /**
  * AttendanceRepository
  *
@@ -10,4 +12,27 @@ namespace AttedanceManagement\UserBundle\Repository;
  */
 class AttendanceRepository extends \Doctrine\ORM\EntityRepository
 {
+	/**
+     * Count all absent.
+     *
+     * @param Student $student
+     * @param SubjectGroup $group
+     *
+     * @return array
+     */
+    public function countAbsentByStudentAction(Student $student, $subjectGroup)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select('COUNT(a.id) as totalAbsent')
+            ->where('a.student = :student')
+            ->setParameter('student', $student);
+
+        if (!empty($subjectGroup)) {
+        	$qb->andWhere('a.subjectGroup = :subjectGroup')
+        		->setParameter('subjectGroup', $subjectGroup);
+        }
+
+        return $qb->getQuery()
+            ->getArrayResult();
+    }
 }

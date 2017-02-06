@@ -8,7 +8,6 @@ var Attendance = (function() {
     }
 
     var submit_attendance = function(elm) {
-        console.log(elm);
         var absentDate = $(elm).parent('td').siblings('td').children('input[name="date_absent"]').val();
         var sessionOne = $(elm).parent('td').siblings('td').children('input[name="session_one"]:checked');
         var sessionTwo = $(elm).parent('td').siblings('td').children('input[name="session_two"]:checked');
@@ -29,6 +28,12 @@ var Attendance = (function() {
         var studentId = $(elm).parent('td').siblings('td').children('input').attr('data-id');
         var subject = get_parameter_by_name('attendance_filter_form[subject]');
         var classGroup = get_parameter_by_name('attendance_filter_form[classGroup]');
+        if (subject == null || classGroup == null) {
+            $('#subject-group-msg').removeClass('hide')
+
+            return false;
+        }
+
         $.ajax({
             url : url,
             method: 'POST',
@@ -42,6 +47,7 @@ var Attendance = (function() {
             },
             success: function(data) {
                 console.log(data.msg);
+                window.location.reload();
             },
             error: function(request, status, error) {
                 console.log(request.responseText);

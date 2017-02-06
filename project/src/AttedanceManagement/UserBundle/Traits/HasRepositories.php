@@ -37,13 +37,22 @@ trait HasRepositories
     public function getSubjectRepository()
     {
         return $this->getDoctrine()->getRepository('AttedanceManagementUserBundle:Subject');
-    } 
+    }
+
     /**
      * @return ClassSubjectGroupRepository|ObjectRepository
      */
     public function getSubjectGroupRepository()
     {
         return $this->getDoctrine()->getRepository('AttedanceManagementUserBundle:SubjectGroup');
+    }
+
+    /**
+     * @return ClassAttendanceRepository|ObjectRepository
+     */
+    public function getAttendanceRepository()
+    {
+        return $this->getDoctrine()->getRepository('AttedanceManagementUserBundle:Attendance');
     }
 
 
