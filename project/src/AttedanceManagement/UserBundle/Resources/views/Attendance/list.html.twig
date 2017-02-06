@@ -10,11 +10,15 @@
 {% endblock %}
 {% block content %}
     {% for flash_message in app.session.flashBag.get('notice') %}
-       <div class="alert alert-dismissible alert-danger">
+        <div class="alert alert-dismissible alert-danger">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             {{ flash_message }}
         </div>
     {% endfor %}
+    <div id="subject-group-msg" class="hide alert alert-dismissible alert-warning ">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Please select subject and group and submit filter first
+    </div>
     {{ form_start(form, { 'attr' : { 'class': 'form-inline' } }) }}
     <form class="form-inline">
         <div class="form-group">
@@ -51,6 +55,7 @@
             <th>Last Name</th>
             <th>Phone Number</th>
             <th>Group</th>
+            <th>Absent</th>
             <th>Date</th>
             <th>Session</th>
             <th>Action</th>
@@ -64,6 +69,26 @@
                 <td>{{ student.lastName }}</td>
                 <td>{{ student.telephone }}</td>
                 <td>{{ student.classGroup.name }}</td>
+                <td>
+                    {% set filters = app.request.query.get('attendance_filter_form') %}
+                    {% set subject = null %}
+                    {% set group = null %}
+                    {% if filters is not null %}
+                        {% set subject = filters['subject'] %}
+                        {% set group = filters['classGroup'] %}
+                    {% endif %}
+                    <a href="#">
+                        {{ render(controller(
+                            'AttedanceManagementUserBundle:Attendance:countAbsentByStudent',
+                                {
+                                    'student': student.id,
+                                    'subject': subject,
+                                    'group': group
+                                }
+                            )
+                        )}}
+                    </a>
+                </td>
                 <td>
                     <input
                         data-id="{{student.id}}"
@@ -80,19 +105,10 @@
                     <input type="checkbox" name="session_two">
                 </td>
                 <td class="remove-underline">
-
-
-                    <a href="#">
-                        <button
-                            type="button"
-                            class="btn btn-default glyphicon glyphicon-edit"
-                        >
-                        </button>
-                    </a>
                     <button
                         type="button"
                         onclick="Attendance.submit_attendance(this)"
-                        class="btn btn-default glyphicon glyphicon-edit"
+                        class="btn btn-default fa fa-floppy-o"
                     >
                     </button>
             </tr>

@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AttedanceManagement\UserBundle\Entity\Attendance;
+use AttedanceManagement\UserBundle\Entity\Student;
 use Symfony\Component\Form\Form;
 use AttedanceManagement\UserBundle\Traits\HasControllerUtils;
 use AttedanceManagement\UserBundle\Traits\HasPagination;
@@ -82,11 +83,6 @@ class AttendanceController extends Controller
         $group = $this->getGroupRepository()->find($groupId);
         $student = $this->getStudentRepository()->find($studentId);
 
-        dump($subject);
-        dump($group);
-        dump($this->getUser());
-        dump($student);
-
         $subjectGroup = $this->getSubjectGroupRepository()->findBySubjectTeacherAndGroup(
             $this->getUser(),
             $subject,
@@ -105,5 +101,36 @@ class AttendanceController extends Controller
         return new JsonResponse([
             'msg' => 'ok',
         ]);
+    }
+
+     /**
+      * Get count absent
+      *
+      * @Template("AttedanceManagementUserBundle:Attendance:count_absent.html.twig")
+      *
+      */
+    public function countAbsentByStudentAction(
+        Student $student,
+        $subject,
+        $group
+    ) {
+        $subjectGroup = null;
+        if (!empty($subject) && !empty($group)) {
+            $subjectGroup = $this->getSubjectGroupRepository()
+                ->findBy([
+                    'subject' => $this->getSubjectRepository()->find($subject),
+                    'classGroup' => $this->getGroupRepository()->find($group),
+                    'user' => $this->getUser(),
+                ]);
+        }
+
+        $absents = $this->getAttendanceRepository()->countAbsentByStudentAction(
+            $student,
+            $subjectGroup
+        );
+
+        return [
+            'absents' => $absents
+        ];
     }
 }
