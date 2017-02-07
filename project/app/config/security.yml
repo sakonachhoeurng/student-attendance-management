@@ -26,7 +26,10 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 default_target_path: list_group
 
-            logout: true
+            logout:
+                path: /logout
+                target: /login
+                
             anonymous: true
 
     access_control:
