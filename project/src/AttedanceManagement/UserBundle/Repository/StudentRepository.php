@@ -39,7 +39,9 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository
             )
         );
 
-        $qb->setParameter('teacher', $teacher);
+        if (!$teacher->hasRole('ROLE_ADMIN')) {
+            $qb->setParameter('teacher', $teacher);
+        }
         if (!empty($subject)) {
             $qb->setParameter('subject', $subject);
         }

@@ -31,7 +31,9 @@ class SubjectGroupRepository extends \Doctrine\ORM\EntityRepository
     ) {
         $qb = $this->createQueryBuilder('sg');
         $qb->select('IDENTITY(sg.classGroup)');
-        $qb->andWhere('sg.user = :teacher');
+        if (!$teacher->hasRole('ROLE_ADMIN')) {
+            $qb->andWhere('sg.user = :teacher');
+        }
 
         if ($classGroup !== null) {
             $qb->andWhere('sg.classGroup = :group');
@@ -59,6 +61,19 @@ class SubjectGroupRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * Get all subject if admin
+     *
+     * @return QueryBuilder
+     */
+    public function getAllSubject()
+    {
+        $qb = $this->createQueryBuilder('sg');
+        $qb->select('IDENTITY(sg.subject)');
+
+        return $qb;
+    }
+
+    /**
      * Get group by teacher
      *
      * @return QueryBuilder
@@ -68,6 +83,19 @@ class SubjectGroupRepository extends \Doctrine\ORM\EntityRepository
     	$qb = $this->createQueryBuilder('sg');
         $qb->select('IDENTITY(sg.classGroup)');
         $qb->andWhere('sg.user = :teacher');
+
+        return $qb;
+    }
+
+    /**
+     * Get all group
+     *
+     * @return QueryBuilder
+     */
+    public function getAllGroups()
+    {
+        $qb = $this->createQueryBuilder('sg');
+        $qb->select('IDENTITY(sg.classGroup)');
 
         return $qb;
     }
