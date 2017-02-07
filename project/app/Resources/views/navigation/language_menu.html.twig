@@ -15,22 +15,22 @@
             <a href="{{
                 path(
                     app.request.attributes.get('_route'),
-                    params | merge({'_locale': 'en-US'})
+                    params | merge({'_locale': 'km-KH'})
                 )
             }}">
-                <span class="flag-icon flag-icon-us"></span>
-                English
+                <span class="flag-icon flag-icon-kh"></span>
+                ខ្មែរ
             </a>
         </li>
         <li>
             <a href="{{
                 path(
                     app.request.attributes.get('_route'),
-                    params | merge({'_locale': 'zh-CN'})
+                    params | merge({'_locale': 'en-US'})
                 )
             }}">
-                <span class="flag-icon flag-icon-cn"></span>
-                中文
+                <span class="flag-icon flag-icon-us"></span>
+                English
             </a>
         </li>
         <li>

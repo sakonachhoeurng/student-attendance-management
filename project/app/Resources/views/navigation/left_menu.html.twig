@@ -1,51 +1,55 @@
 <div class="navbar-default sidebar" role="navigation" xmlns="http://www.w3.org/1999/html">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER') %}
+            <li>
+                <a href="{{ path('list_attendance') }}">
+                    <i class="fa fa-check-square"></i>
+                    {{ "app.attendance"|trans }}
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
             <li>
                 <a href="{{ path('list_group') }}">
-                    <i class="fa fa-table fa-fw"></i>
+                    <i class="fa fa-building"></i>
                     {{ "app.group"|trans }}
                 </a>
             </li>
             <li>
                 <a href="{{ path('list_teacher') }}">
-                    <i class="fa fa-table fa-fw"></i>
+                    <i class="fa fa-users"></i>
                     {{ "app.teacher"|trans }}
                 </a>
             </li>
             <li>
                 <a href="{{ path('list_student') }}">
-                    <i class="fa fa-table fa-fw"></i>
+                    <i class="fa fa-graduation-cap"></i>
                     {{ "app.student"|trans }}
                 </a>
             </li>
             <li>
                 <a href="{{ path('list_subject') }}">
-                    <i class="fa fa-table fa-fw"></i>
+                    <i class="fa fa-book"></i>
                     {{ "app.course"|trans }}
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{ path('list_subject') }}">
-                            <i class="fa fa-table fa-fw"></i>
+                            <i class="fa fa-book"></i>
                             {{ "app.subject"|trans }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('list_subject_group') }}">
-                            <i class="fa fa-table fa-fw"></i>
+                            <i class="fa fa-book"></i>
                             {{ "app.subject.choose.group"|trans }}
                         </a>
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="{{ path('list_attendance') }}">
-                    <i class="fa fa-table fa-fw"></i>
-                    {{ "app.attendance"|trans }}
-                </a>
-            </li>
+            {% endif %}
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

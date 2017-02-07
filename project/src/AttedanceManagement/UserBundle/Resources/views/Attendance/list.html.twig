@@ -44,8 +44,19 @@
             )}}
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
+        <div class="btn-group pull-right">
+        <a
+            onclick="Export.do_export('table', 'pdf', 'attendance')"
+            class="btn btn-default"
+        >
+            Export Pdf
+            <i class="fa fa-file-pdf-o"></i>
+        </a>
+    </div>
+    <div class="clearfix"></div>
     {{ form_end(form) }}
     <hr />
+
     <div class="table-responsive col-md-12">
       <table class="table table" data-save-route="{{ path('save_attendance')}}">
         <thead>
@@ -56,15 +67,15 @@
             <th>Phone Number</th>
             <th>Group</th>
             <th>Absent</th>
-            <th>Date</th>
-            <th>Session</th>
-            <th>Action</th>
+            <th data-field="hide-export">Date</th>
+            <th data-field="hide-export">Session</th>
+            <th data-field="hide-export">Action</th>
           </tr>
         </thead>
         {% for student in students %}
             <tbody>
             <tr>
-                <th scope="row">{{ student.id }}</th>
+                <td scope="row">{{ student.id }}</td>
                 <td>{{ student.firstName }}</td>
                 <td>{{ student.lastName }}</td>
                 <td>{{ student.telephone }}</td>
@@ -124,6 +135,9 @@
         "@AttedanceManagementUserBundle/Resources/public/js/moment.min.js"
         "@AttedanceManagementUserBundle/Resources/public/js/bootstrap-datetimepicker.min.js"
         "@AttedanceManagementUserBundle/Resources/public/js/attendance.js"
+        "@AttedanceManagementUserBundle/Resources/public/js/tableExport.min.js"
+        "@AttedanceManagementUserBundle/Resources/public/js/jspdf.min.js"        "@AttedanceManagementUserBundle/Resources/public/js/jspdf.plugin.autotable.js"
+        "@AttedanceManagementUserBundle/Resources/public/js/export.js"
     %}
         <script src="{{asset_url}}"></script>
     {% endjavascripts %}

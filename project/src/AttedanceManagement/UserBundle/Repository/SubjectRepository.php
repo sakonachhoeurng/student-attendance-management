@@ -21,8 +21,13 @@ class SubjectRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findByTeacher(User $teacher)
     {
-        $subjectQuery = $this->getEntityManager()->getRepository('AttedanceManagementUserBundle:SubjectGroup')->findSubjectByTeacher($teacher);
         $qb = $this->createQueryBuilder('s');
+        if ($teacher->hasRole('ROLE_ADMIN')) {
+            $subjectQuery = $this->getEntityManager()->getRepository('AttedanceManagementUserBundle:SubjectGroup')->getAllSubject();
+        } else {
+            $subjectQuery = $this->getEntityManager()->getRepository('AttedanceManagementUserBundle:SubjectGroup')->findSubjectByTeacher($teacher);
+            $qb->setParameter('teacher', $teacher);
+        }
         $qb->where(
              $qb
             ->expr()
@@ -31,7 +36,6 @@ class SubjectRepository extends \Doctrine\ORM\EntityRepository
                 $subjectQuery->getDQL()
             )
         );
-        $qb->setParameter('teacher', $teacher);
 
         $qb->orderBy('s.id', 'DESC');
 
